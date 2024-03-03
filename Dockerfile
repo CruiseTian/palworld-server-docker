@@ -17,7 +17,7 @@ RUN wget -q https://github.com/gorcon/rcon-cli/archive/refs/tags/v${RCON_VERSION
     && rm -rf rcon-cli-${RCON_VERSION} \
     && go build -v ./cmd/gorcon
 
-FROM cm2network/steamcmd:root as base-amd64
+FROM cm2network/steamcmd:root-bullseye as base-amd64
 # Ignoring --platform=arm64 as this is required for the multi-arch build to continue to work on amd64 hosts
 # hadolint ignore=DL3029
 FROM --platform=arm64 sonroyaalmerol/steamcmd-arm64:root-2024-02-29 as base-arm64
@@ -46,12 +46,12 @@ ARG SUPERCRONIC_VERSION="0.2.29"
 # update and install dependencies
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    procps=2:4.0.2-3 \
-    wget \ 
-    gettext-base=0.21-12 \
-    xdg-user-dirs=0.18-1 \
-    jo=1.9-1 \
-    netcat-traditional=1.10-47 \
+    procps=2:3.3.17-5 \
+    wget \
+    gettext-base=0.21-4 \
+    xdg-user-dirs=0.17-2 \
+    jo=1.3-2 \
+    netcat-traditional \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
